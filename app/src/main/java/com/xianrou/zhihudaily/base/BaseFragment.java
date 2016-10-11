@@ -11,10 +11,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.xianrou.zhihudaily.uitls.NullCheckUtil;
 import com.xianrou.zhihudaily.uitls.ToastUtil;
 
 import butterknife.ButterKnife;
 import me.yokeyword.fragmentation.SupportFragment;
+import rx.Subscription;
+import rx.subscriptions.CompositeSubscription;
 
 
 /**
@@ -45,6 +48,7 @@ public abstract class BaseFragment<T extends BasePresenter> extends SupportFragm
 	 * context
 	 */
 	protected Context mContext = null;
+	private CompositeSubscription mCompositeSubscription;
 
 
 	@Override
@@ -133,6 +137,13 @@ public abstract class BaseFragment<T extends BasePresenter> extends SupportFragm
 	}
 
 	@Override
+	public void toast(int resId) {
+		if (resId != 0) {
+			ToastUtil.showToast(resId);
+		}
+	}
+
+	@Override
 	public void showLoadingView() {
 
 	}
@@ -142,10 +153,25 @@ public abstract class BaseFragment<T extends BasePresenter> extends SupportFragm
 
 	}
 
+	protected void addSubscribe(Subscription subscription) {
+		NullCheckUtil.checkNotNull(subscription, "subscription 不能为空");
+		if (mCompositeSubscription == null) {
+			mCompositeSubscription = new CompositeSubscription();
+		}
+		mCompositeSubscription.add(subscription);
+	}
+
+	private void unSubscibe() {
+		if (null != mCompositeSubscription) {
+			mCompositeSubscription.unsubscribe();
+		}
+	}
+
 	@Override
 	public void onDestroy() {
 		super.onDestroy();
 		if (null != mPresenter)
 			mPresenter.detachView();
+		unSubscibe();
 	}
 }

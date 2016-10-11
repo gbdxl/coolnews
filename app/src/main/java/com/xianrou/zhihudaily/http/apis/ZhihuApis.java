@@ -1,9 +1,11 @@
 package com.xianrou.zhihudaily.http.apis;
 
 import com.xianrou.zhihudaily.bean.DailyListBean;
+import com.xianrou.zhihudaily.bean.ThemeChildListBean;
 import com.xianrou.zhihudaily.bean.ThemeListBean;
 
 import retrofit2.http.GET;
+import retrofit2.http.Path;
 import rx.Observable;
 
 /**
@@ -26,24 +28,24 @@ public interface ZhihuApis {
     @GET("news/latest")
     Observable<DailyListBean> getDailyList();
 
-//    /**
-//     * 往期日报
-//     */
-//    @GET("news/before/{date}")
-//    Observable<DailyBeforeListBean> getDailyBeforeList(@Path("date") String date);
-//
+    /**
+     * 往期日报
+     */
+    @GET("news/before/{date}")
+    Observable<DailyListBean> getDailyBeforeList(@Path("date") String date);
+
     /**
      * 主题日报
      */
     @GET("themes")
     Observable<ThemeListBean> getThemeList();
-//
-//    /**
-//     * 主题日报详情
-//     */
-//    @GET("theme/{id}")
-//    Observable<ThemeChildListBean> getThemeChildList(@Path("id") int id);
-//
+
+    /**
+     * 主题日报详情
+     */
+    @GET("theme/{id}")
+    Observable<ThemeChildListBean> getThemeChildList(@Path("id") int id);
+
 //    /**
 //     * 专栏日报
 //     */

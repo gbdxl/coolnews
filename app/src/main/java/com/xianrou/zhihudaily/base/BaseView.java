@@ -7,6 +7,8 @@ public interface BaseView {
 
 	void toast(String msg);
 
+	void toast(int resid);
+
 	void showLoadingView();
 
 	void hideLoadingView();

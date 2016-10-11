@@ -1,10 +1,13 @@
 package com.xianrou.zhihudaily.ui.zhihu;
 
+import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
+import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.chad.library.adapter.base.listener.OnItemClickListener;
 import com.xianrou.zhihudaily.R;
 import com.xianrou.zhihudaily.base.BaseFragment;
 import com.xianrou.zhihudaily.bean.OthersBean;
@@ -55,6 +58,18 @@ public class ThemeFragment extends BaseFragment<ThemePresenter>
 		mAdapter = new ThemeAdapter(R.layout.item_theme, mList);
 		mRecyclerView.addItemDecoration(new GridSpacingItemDecoration(2, 6, true));
 		mRecyclerView.setAdapter(mAdapter);
+		mRecyclerView.addOnItemTouchListener(new OnItemClickListener() {
+			@Override
+			public void SimpleOnItemClick(BaseQuickAdapter baseQuickAdapter, View view, int i) {
+				if (mList.size() > 0){
+					ActivityOptionsCompat options
+							= ActivityOptionsCompat.makeSceneTransitionAnimation(mActivity, view, getString(R.string.theme_share));
+					ThemeActivity.launch(mActivity, mList.get(i).id, options.toBundle());
+					mActivity.overridePendingTransition(0, 0);
+				}
+
+			}
+		});
 	}
 
 	@Override

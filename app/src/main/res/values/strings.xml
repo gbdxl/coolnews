@@ -5,4 +5,6 @@
     <string name="navigation_drawer_close">Close navigation drawer</string>
 
     <string name="action_settings">Settings</string>
+    <string name="theme_share">theme_share</string>
+    <string name="no_more_data">数据加载失败ヽ(≧Д≦)ノ</string>
 </resources>

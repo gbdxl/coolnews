@@ -12,15 +12,18 @@ import com.xianrou.zhihudaily.R;
 import com.xianrou.zhihudaily.base.BaseFragment;
 import com.xianrou.zhihudaily.bean.DailyListBean;
 import com.xianrou.zhihudaily.bean.StoriesBean;
+import com.xianrou.zhihudaily.events.TabSelectEvent;
 import com.xianrou.zhihudaily.presenter.DailyPresenter;
 import com.xianrou.zhihudaily.presenter.contractor.DailyContractor;
 import com.xianrou.zhihudaily.ui.zhihu.adapter.DailyAdapter;
 import com.xianrou.zhihudaily.ui.zhihu.adapter.NetworkImageHolderView;
+import com.xianrou.zhihudaily.uitls.RxBus;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
+import rx.Subscription;
 
 /**
  * Created by android studio.
@@ -42,6 +45,7 @@ public class DailyFragment extends BaseFragment<DailyContractor.Presenter>
 	private DailyListBean mListBean;
 	private ConvenientBanner mBanner;
 	private View mHeader;
+	private String lastDate;
 
 	@Override
 	public void onRefresh() {
@@ -70,6 +74,27 @@ public class DailyFragment extends BaseFragment<DailyContractor.Presenter>
 		mDailyAdapter = new DailyAdapter(R.layout.item_dialy, storiesBeen);
 		mDailyAdapter.openLoadAnimation(BaseQuickAdapter.SLIDEIN_BOTTOM);
 		mRecyclerView.setAdapter(mDailyAdapter);
+		addListeners();
+		registerEvent();
+	}
+
+	private void registerEvent() {
+		Subscription subscribe = RxBus.getInstance()
+				.toObserverable()
+				.subscribe(o -> {
+					if (o instanceof TabSelectEvent)
+						mRecyclerView.scrollToPosition(0);
+				});
+		addSubscribe(subscribe);
+	}
+
+	private void addListeners() {
+		mDailyAdapter.setOnLoadMoreListener(() -> {
+			mRecyclerView.post(() -> {
+				if(lastDate != null)
+					mPresenter.getMoreData(lastDate);
+			});
+		});
 	}
 
 	private View getHeaderView() {
@@ -106,6 +131,8 @@ public class DailyFragment extends BaseFragment<DailyContractor.Presenter>
 		storiesBeen.clear();
 		storiesBeen.addAll(listBean.stories);
 		mDailyAdapter.dataAdded();
+		lastDate = listBean.date;
+		mDailyAdapter.openLoadMore(listBean.stories.size());
 		if (mHeader != null)
 			mDailyAdapter.removeHeaderView(mHeader);
 		mDailyAdapter.addHeaderView(getHeaderView());
@@ -113,11 +140,18 @@ public class DailyFragment extends BaseFragment<DailyContractor.Presenter>
 
 	@Override
 	public void showMoreContent(DailyListBean listBean) {
+		lastDate = listBean.date;
+		mDailyAdapter.addData(listBean.stories);
+	}
 
+	@Override
+	public void loadComplete() {
+		mDailyAdapter.loadComplete();
 	}
 
 	@Override
 	public void hideRefresh() {
 		mSwipeLayout.setRefreshing(false);
 	}
+
 }

@@ -18,6 +18,8 @@ public class DailyContractor {
 
 		void showMoreContent(DailyListBean listBean);
 
+		void loadComplete();
+
 		void hideRefresh();
 	}
 
@@ -25,7 +27,7 @@ public class DailyContractor {
 
 		void getData();
 
-		void getMoreData();
+		void getMoreData(String date);
 
 	}
 

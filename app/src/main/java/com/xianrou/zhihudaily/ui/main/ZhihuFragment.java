@@ -9,11 +9,13 @@ import android.view.View;
 
 import com.xianrou.zhihudaily.R;
 import com.xianrou.zhihudaily.base.BaseFragment;
+import com.xianrou.zhihudaily.events.TabSelectEvent;
 import com.xianrou.zhihudaily.ui.main.adapter.ZhihuMainAdapter;
 import com.xianrou.zhihudaily.ui.zhihu.DailyFragment;
 import com.xianrou.zhihudaily.ui.zhihu.HotFragment;
 import com.xianrou.zhihudaily.ui.zhihu.SectionFragment;
 import com.xianrou.zhihudaily.ui.zhihu.ThemeFragment;
+import com.xianrou.zhihudaily.uitls.RxBus;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -43,7 +45,6 @@ public class ZhihuFragment extends BaseFragment {
 
 	ZhihuMainAdapter mAdapter;
 
-
 	@Override
 	protected int getContentViewLayoutID() {
 		return R.layout.fragment_zhihu;
@@ -65,5 +66,31 @@ public class ZhihuFragment extends BaseFragment {
 		mAdapter = new ZhihuMainAdapter(getChildFragmentManager(), fragments, tabTitle);
 		mViewPager.setAdapter(mAdapter);
 		mTabLayout.setupWithViewPager(mViewPager);
+		addListeners();
+	}
+
+	private void addListeners() {
+		mTabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+			@Override
+			public void onTabSelected(TabLayout.Tab tab) {
+				if (tab.getPosition() == 0) {
+					fab.setVisibility(View.VISIBLE);
+				}else{
+					fab.setVisibility(View.GONE);
+				}
+
+			}
+
+			@Override
+			public void onTabUnselected(TabLayout.Tab tab) {
+
+			}
+
+			@Override
+			public void onTabReselected(TabLayout.Tab tab) {
+
+			}
+		});
+		fab.setOnClickListener(v -> RxBus.getInstance().send(new TabSelectEvent()));
 	}
 }

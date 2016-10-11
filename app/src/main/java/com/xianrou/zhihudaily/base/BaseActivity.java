@@ -2,10 +2,15 @@ package com.xianrou.zhihudaily.base;
 
 import android.content.Context;
 import android.content.res.Resources;
+import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.widget.Toolbar;
+import android.text.TextUtils;
 import android.util.DisplayMetrics;
+import android.view.View;
+import android.view.WindowManager;
 
 import com.xianrou.zhihudaily.R;
 import com.xianrou.zhihudaily.uitls.ToastUtil;
@@ -43,6 +48,7 @@ public abstract class BaseActivity<T extends BasePresenter>
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		setStatusBar();
 		mSavedInstanceState = savedInstanceState;
 
 		mFragmentManager = getSupportFragmentManager();
@@ -73,6 +79,19 @@ public abstract class BaseActivity<T extends BasePresenter>
 			mPresenter.attachView(this);
 	}
 
+	private void setStatusBar() {
+		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {//5.0及以上
+			View decorView = getWindow().getDecorView();
+			int option = View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+					| View.SYSTEM_UI_FLAG_LAYOUT_STABLE;
+			decorView.setSystemUiVisibility(option);
+			getWindow().setStatusBarColor(Color.TRANSPARENT);
+		} else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {//4.4到5.0
+			WindowManager.LayoutParams localLayoutParams = getWindow().getAttributes();
+			localLayoutParams.flags = (WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS | localLayoutParams.flags);
+		}
+	}
+
 	protected void loadFragment(int containerId, BaseFragment fragment) {
 		if (containerId != 0 && fragment != null)
 			loadRootFragment(containerId, fragment);
@@ -96,12 +115,11 @@ public abstract class BaseActivity<T extends BasePresenter>
 		mScreenWidth = displayMetrics.widthPixels;
 	}
 
+	protected abstract int getContentId();
 
 	protected abstract void initViews();
 
 	protected abstract void initData();
-
-	protected abstract int getContentId();
 
 	@Override
 	protected void onDestroy() {
@@ -113,7 +131,14 @@ public abstract class BaseActivity<T extends BasePresenter>
 
 	@Override
 	public void toast(String msg) {
-		ToastUtil.showToast(msg);
+		if(!TextUtils.isEmpty(msg))
+			ToastUtil.showToast(msg);
+	}
+
+	@Override
+	public void toast(int resId) {
+		if (resId != 0)
+			ToastUtil.showToast(resId);
 	}
 
 	@Override

@@ -6,6 +6,8 @@ import com.xianrou.zhihudaily.presenter.contractor.ThemeContractor;
 import com.xianrou.zhihudaily.uitls.RxUtil;
 import com.xianrou.zhihudaily.uitls.TLog;
 
+import rx.Subscription;
+
 /**
  * Created by android studio.
  * user 磊
@@ -24,15 +26,16 @@ public class ThemePresenter extends BasePresenterImpl<ThemeContractor.View> impl
 
 	@Override
 	public void getData() {
-		mRetrofitHelper.fetchDailyThemeListInfo()
+		Subscription subscribe = mRetrofitHelper.fetchDailyThemeListInfo()
 				.compose(RxUtil.rxSchedulerHelper())
 				.subscribe(data -> {
 					mView.showContent(data);
 					mView.hideRefresh();
 					TLog.d(data.toString());
-				},throwable -> {
+				}, throwable -> {
 					mView.hideRefresh();
 					TLog.e(throwable);
 				});
+		addSubscribe(subscribe);
 	}
 }
