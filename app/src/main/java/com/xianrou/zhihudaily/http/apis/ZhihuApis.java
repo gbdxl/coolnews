@@ -2,6 +2,8 @@ package com.xianrou.zhihudaily.http.apis;
 
 import com.xianrou.zhihudaily.bean.DailyListBean;
 import com.xianrou.zhihudaily.bean.DetailExtraBean;
+import com.xianrou.zhihudaily.bean.HotListBean;
+import com.xianrou.zhihudaily.bean.SectionListBean;
 import com.xianrou.zhihudaily.bean.ThemeChildListBean;
 import com.xianrou.zhihudaily.bean.ThemeListBean;
 import com.xianrou.zhihudaily.bean.WelcomeBean;
@@ -49,24 +51,24 @@ public interface ZhihuApis {
     @GET("theme/{id}")
     Observable<ThemeChildListBean> getThemeChildList(@Path("id") int id);
 
-//    /**
-//     * 专栏日报
-//     */
-//    @GET("sections")
-//    Observable<SectionListBean> getSectionList();
-//
+    /**
+     * 专栏日报
+     */
+    @GET("sections")
+    Observable<SectionListBean> getSectionList();
+
 //    /**
 //     * 专栏日报详情
 //     */
 //    @GET("section/{id}")
 //    Observable<SectionChildListBean> getSectionChildList(@Path("id") int id);
 //
-//    /**
-//     * 热门日报
-//     */
-//    @GET("news/hot")
-//    Observable<HotListBean> getHotList();
-//
+    /**
+     * 热门日报
+     */
+    @GET("news/hot")
+    Observable<HotListBean> getHotList();
+
     /**
      * 日报详情
      */

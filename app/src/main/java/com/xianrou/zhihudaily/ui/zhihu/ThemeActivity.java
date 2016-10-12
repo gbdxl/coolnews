@@ -53,7 +53,6 @@ public class ThemeActivity extends BaseActivity<ThemeActivityPresenter>
 	private List<StoriesBean> mList = new ArrayList<>();
 	private ThemeActivityAdapter mAdapter;
 	private ThemeChildListBean mBean;
-	private boolean isExpanded;
 
 	public static void launch(Activity activity, int id, Bundle bundle) {
 		Intent intent = new Intent(activity, ThemeActivity.class);

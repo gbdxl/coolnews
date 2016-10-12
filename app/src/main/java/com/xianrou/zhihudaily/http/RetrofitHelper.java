@@ -5,6 +5,8 @@ import com.facebook.stetho.okhttp3.StethoInterceptor;
 import com.xianrou.zhihudaily.AppApplication;
 import com.xianrou.zhihudaily.bean.DailyListBean;
 import com.xianrou.zhihudaily.bean.DetailExtraBean;
+import com.xianrou.zhihudaily.bean.HotListBean;
+import com.xianrou.zhihudaily.bean.SectionListBean;
 import com.xianrou.zhihudaily.bean.ThemeChildListBean;
 import com.xianrou.zhihudaily.bean.ThemeListBean;
 import com.xianrou.zhihudaily.bean.WelcomeBean;
@@ -151,14 +153,14 @@ public class RetrofitHelper {
     public Observable<ThemeListBean> fetchDailyThemeListInfo() {
         return zhihuApiService.getThemeList();
     }
-//
+
     public Observable<ThemeChildListBean> fetchThemeChildListInfo(int id) {
         return zhihuApiService.getThemeChildList(id);
     }
-//
-//    public Observable<SectionListBean> fetchSectionListInfo() {
-//        return zhihuApiService.getSectionList();
-//    }
+
+    public Observable<SectionListBean> fetchSectionListInfo() {
+        return zhihuApiService.getSectionList();
+    }
 //
 //    public Observable<SectionChildListBean> fetchSectionChildListInfo(int id) {
 //        return zhihuApiService.getSectionChildList(id);
@@ -184,9 +186,9 @@ public class RetrofitHelper {
 //        return zhihuApiService.getShortCommentInfo(id);
 //    }
 //
-//    public Observable<HotListBean> fetchHotListInfo() {
-//        return zhihuApiService.getHotList();
-//    }
+    public Observable<HotListBean> fetchHotListInfo() {
+        return zhihuApiService.getHotList();
+    }
 //
 //    public Observable<GankHttpResponse<List<GankItemBean>>> fetchTechList(String tech, int num, int page) {
 //        return gankApiService.getTechList(tech, num, page);

@@ -65,7 +65,8 @@
                 app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
                 >
 
-                <LinearLayout
+                <include layout="@layout/detail_radiogroup"/>
+               <!-- <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_marginLeft="100dp"
@@ -77,6 +78,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:scaleType="centerInside"
+                        android:background="?attr/selectableItemBackgroundBorderless"
                         android:src="@drawable/ic_share_white_24dp"/>
 
                     <ImageView
@@ -84,6 +86,7 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
+                        android:background="?attr/selectableItemBackgroundBorderless"
                         android:src="@drawable/ic_star_white_24dp"/>
 
                     <LinearLayout
@@ -130,7 +133,7 @@
                             android:textColor="@android:color/white"
                             android:textSize="12sp"/>
                     </LinearLayout>
-                </LinearLayout>
+                </LinearLayout>-->
             </android.support.v7.widget.Toolbar>
         </android.support.design.widget.CollapsingToolbarLayout>
     </android.support.design.widget.AppBarLayout>

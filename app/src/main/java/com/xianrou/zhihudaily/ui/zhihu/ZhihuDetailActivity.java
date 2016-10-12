@@ -9,7 +9,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
+import android.widget.RadioButton;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
@@ -49,20 +49,18 @@ public class ZhihuDetailActivity extends BaseActivity<ZhihuDetailPresenter> impl
 	WebView wvDetailContent;
 	@BindView(R.id.scroll_view)
 	NestedScrollView scrollView;
-	@BindView(R.id.comment_num)
-	TextView commentNum;
-	@BindView(R.id.comment_bar)
-	LinearLayout commentBar;
-	@BindView(R.id.praise_num)
-	TextView praiseNum;
-	@BindView(R.id.praise_bar)
-	LinearLayout praiseBar;
 	@BindView(R.id.toolbar)
 	Toolbar toolbar;
 	@BindView(R.id.level_view)
 	LoadingView levelView;
-	@BindView(R.id.iv_share)
-	ImageView ivShare;
+	@BindView(R.id.rb_share)
+	RadioButton rbShare;
+	@BindView(R.id.rb_star)
+	RadioButton rbStar;
+	@BindView(R.id.rb_comment)
+	RadioButton rbComment;
+	@BindView(R.id.rb_praise)
+	RadioButton rbPraise;
 
 	private int mId;
 	private ZhihuDetailBean mDetailBean;
@@ -103,7 +101,7 @@ public class ZhihuDetailActivity extends BaseActivity<ZhihuDetailPresenter> impl
 	}
 
 	private void addListeners() {
-		ivShare.setOnClickListener(v -> {
+		rbShare.setOnClickListener(v -> {
 			Intent intent = new Intent(Intent.ACTION_SEND);
 			intent.setType("text/plain");
 			intent.putExtra(Intent.EXTRA_TEXT, mDetailBean.share_url);
@@ -133,8 +131,8 @@ public class ZhihuDetailActivity extends BaseActivity<ZhihuDetailPresenter> impl
 
 	@Override
 	public void showExtraData(DetailExtraBean extraBean) {
-		commentNum.setText(extraBean.comments + "");
-		praiseNum.setText(extraBean.popularity + "");
+		rbComment.setText(extraBean.comments + "");
+		rbPraise.setText(extraBean.popularity + "");
 	}
 
 	@Override
@@ -157,4 +155,5 @@ public class ZhihuDetailActivity extends BaseActivity<ZhihuDetailPresenter> impl
 		levelView.setVisibility(View.GONE);
 		wvDetailContent.setVisibility(View.VISIBLE);
 	}
+
 }

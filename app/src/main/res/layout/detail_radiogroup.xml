@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RadioGroup
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="?attr/actionBarSize"
+    android:layout_gravity="end"
+    android:divider="@drawable/common_divider_large_horizontal"
+    android:gravity="center_vertical"
+    android:orientation="horizontal"
+    android:showDividers="beginning|middle|end"
+    tools:showIn="@layout/activity_theme">
+
+    <RadioButton
+        android:id="@+id/rb_share"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        android:button="@drawable/ic_share_white_18dp"/>
+
+    <RadioButton
+        android:id="@+id/rb_star"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        android:button="@drawable/ic_star_white_18dp"/>
+
+    <RadioButton
+        android:id="@+id/rb_comment"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        android:button="@drawable/ic_comment_white_18dp"
+        android:text="..."
+        android:textColor="@android:color/white"
+        android:textSize="@dimen/sp_14"/>
+
+    <RadioButton
+        android:id="@+id/rb_praise"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        android:button="@drawable/ic_thumb_up_white_18dp"
+        android:text="..."
+        android:textColor="@android:color/white"
+        android:textSize="@dimen/sp_14"/>
+</RadioGroup>
