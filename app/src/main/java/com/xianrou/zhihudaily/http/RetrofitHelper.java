@@ -4,6 +4,7 @@ package com.xianrou.zhihudaily.http;
 import com.facebook.stetho.okhttp3.StethoInterceptor;
 import com.xianrou.zhihudaily.AppApplication;
 import com.xianrou.zhihudaily.bean.DailyListBean;
+import com.xianrou.zhihudaily.bean.DetailExtraBean;
 import com.xianrou.zhihudaily.bean.ThemeChildListBean;
 import com.xianrou.zhihudaily.bean.ThemeListBean;
 import com.xianrou.zhihudaily.bean.WelcomeBean;
@@ -167,9 +168,9 @@ public class RetrofitHelper {
         return zhihuApiService.getDetailInfo(id);
     }
 //
-//    public Observable<DetailExtraBean> fetchDetailExtraInfo(int id) {
-//        return zhihuApiService.getDetailExtraInfo(id);
-//    }
+    public Observable<DetailExtraBean> fetchDetailExtraInfo(int id) {
+        return zhihuApiService.getDetailExtraInfo(id);
+    }
 //
     public Observable<WelcomeBean> fetchWelcomeInfo(String res) {
         return zhihuApiService.getWelcomeInfo(res);

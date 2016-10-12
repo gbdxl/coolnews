@@ -1,6 +1,7 @@
 package com.xianrou.zhihudaily.http.apis;
 
 import com.xianrou.zhihudaily.bean.DailyListBean;
+import com.xianrou.zhihudaily.bean.DetailExtraBean;
 import com.xianrou.zhihudaily.bean.ThemeChildListBean;
 import com.xianrou.zhihudaily.bean.ThemeListBean;
 import com.xianrou.zhihudaily.bean.WelcomeBean;
@@ -71,12 +72,12 @@ public interface ZhihuApis {
      */
     @GET("news/{id}")
     Observable<ZhihuDetailBean> getDetailInfo(@Path("id") int id);
-//
-//    /**
-//     * 日报的额外信息
-//     */
-//    @GET("story-extra/{id}")
-//    Observable<DetailExtraBean> getDetailExtraInfo(@Path("id") int id);
+
+    /**
+     * 日报的额外信息
+     */
+    @GET("story-extra/{id}")
+    Observable<DetailExtraBean> getDetailExtraInfo(@Path("id") int id);
 //
 //    /**
 //     * 日报的长评论

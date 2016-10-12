@@ -53,4 +53,5 @@ dependencies {
     compile 'com.bigkoo:convenientbanner:2.0.5'
     compile 'net.opacapp:multiline-collapsingtoolbar:1.2.2'
     compile files('libs/tbs_sdk_thirdapp_v2.2.0.1096_36549_sharewithdownload_withoutGame_obfs_20160830_211645.jar')
+    compile project(':loadinglibrary')
 }

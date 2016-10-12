@@ -4,6 +4,7 @@ import com.xianrou.zhihudaily.R;
 import com.xianrou.zhihudaily.base.BasePresenterImpl;
 import com.xianrou.zhihudaily.http.RetrofitHelper;
 import com.xianrou.zhihudaily.uitls.RxUtil;
+import com.xianrou.zhihudaily.uitls.TLog;
 
 import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
@@ -33,8 +34,16 @@ public class ZhihuDetailPresenter extends BasePresenterImpl<ZhihuDetailContracto
 					mView.hideLoadingView();
 				}, throwable -> {
 					mView.toast(R.string.no_more_data);
-					mView.hideLoadingView();
 				});
+		addSubscribe(subscribe);
+	}
+
+	@Override
+	public void getExtraData(int id) {
+		Subscription subscribe = mRetrofitHelper.fetchDetailExtraInfo(id)
+				.compose(RxUtil.rxSchedulerHelper())
+				.subscribe(extraBean -> mView.showExtraData(extraBean),
+						throwable -> TLog.e("获取评论数量失败"));
 		addSubscribe(subscribe);
 	}
 }
