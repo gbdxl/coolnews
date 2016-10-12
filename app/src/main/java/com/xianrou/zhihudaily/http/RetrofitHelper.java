@@ -6,6 +6,8 @@ import com.xianrou.zhihudaily.AppApplication;
 import com.xianrou.zhihudaily.bean.DailyListBean;
 import com.xianrou.zhihudaily.bean.ThemeChildListBean;
 import com.xianrou.zhihudaily.bean.ThemeListBean;
+import com.xianrou.zhihudaily.bean.WelcomeBean;
+import com.xianrou.zhihudaily.bean.ZhihuDetailBean;
 import com.xianrou.zhihudaily.http.apis.ZhihuApis;
 import com.xianrou.zhihudaily.uitls.SystemUtil;
 
@@ -161,17 +163,17 @@ public class RetrofitHelper {
 //        return zhihuApiService.getSectionChildList(id);
 //    }
 //
-//    public Observable<ZhihuDetailBean> fetchDetailInfo(int id) {
-//        return zhihuApiService.getDetailInfo(id);
-//    }
+    public Observable<ZhihuDetailBean> fetchDetailInfo(int id) {
+        return zhihuApiService.getDetailInfo(id);
+    }
 //
 //    public Observable<DetailExtraBean> fetchDetailExtraInfo(int id) {
 //        return zhihuApiService.getDetailExtraInfo(id);
 //    }
 //
-//    public Observable<WelcomeBean> fetchWelcomeInfo(String res) {
-//        return zhihuApiService.getWelcomeInfo(res);
-//    }
+    public Observable<WelcomeBean> fetchWelcomeInfo(String res) {
+        return zhihuApiService.getWelcomeInfo(res);
+    }
 //
 //    public Observable<CommentBean> fetchLongCommentInfo(int id) {
 //        return zhihuApiService.getLongCommentInfo(id);

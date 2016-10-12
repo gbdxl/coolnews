@@ -8,6 +8,7 @@ import android.view.View;
 import com.bigkoo.convenientbanner.ConvenientBanner;
 import com.bigkoo.convenientbanner.holder.CBViewHolderCreator;
 import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.chad.library.adapter.base.listener.OnItemClickListener;
 import com.xianrou.zhihudaily.R;
 import com.xianrou.zhihudaily.base.BaseFragment;
 import com.xianrou.zhihudaily.bean.DailyListBean;
@@ -94,6 +95,12 @@ public class DailyFragment extends BaseFragment<DailyContractor.Presenter>
 				if(lastDate != null)
 					mPresenter.getMoreData(lastDate);
 			});
+		});
+		mRecyclerView.addOnItemTouchListener(new OnItemClickListener() {
+			@Override
+			public void SimpleOnItemClick(BaseQuickAdapter baseQuickAdapter, View view, int i) {
+				ZhihuDetailActivity.launch(mActivity, storiesBeen.get(i).id);
+			}
 		});
 	}
 

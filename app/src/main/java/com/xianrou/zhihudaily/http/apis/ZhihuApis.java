@@ -3,6 +3,8 @@ package com.xianrou.zhihudaily.http.apis;
 import com.xianrou.zhihudaily.bean.DailyListBean;
 import com.xianrou.zhihudaily.bean.ThemeChildListBean;
 import com.xianrou.zhihudaily.bean.ThemeListBean;
+import com.xianrou.zhihudaily.bean.WelcomeBean;
+import com.xianrou.zhihudaily.bean.ZhihuDetailBean;
 
 import retrofit2.http.GET;
 import retrofit2.http.Path;
@@ -16,11 +18,11 @@ public interface ZhihuApis {
 
     String HOST = "http://news-at.zhihu.com/api/4/";
 
-//    /**
-//     * 启动界面图片
-//     */
-//    @GET("start-image/{res}")
-//    Observable<WelcomeBean> getWelcomeInfo(@Path("res") String res);
+    /**
+     * 启动界面图片
+     */
+    @GET("start-image/{res}")
+    Observable<WelcomeBean> getWelcomeInfo(@Path("res") String res);
 
     /**
      * 最新日报
@@ -64,11 +66,11 @@ public interface ZhihuApis {
 //    @GET("news/hot")
 //    Observable<HotListBean> getHotList();
 //
-//    /**
-//     * 日报详情
-//     */
-//    @GET("news/{id}")
-//    Observable<ZhihuDetailBean> getDetailInfo(@Path("id") int id);
+    /**
+     * 日报详情
+     */
+    @GET("news/{id}")
+    Observable<ZhihuDetailBean> getDetailInfo(@Path("id") int id);
 //
 //    /**
 //     * 日报的额外信息
