@@ -4,6 +4,8 @@ import android.util.Log;
 
 import com.xianrou.zhihudaily.R;
 import com.xianrou.zhihudaily.base.BasePresenterImpl;
+import com.xianrou.zhihudaily.bean.ReadBean;
+import com.xianrou.zhihudaily.bean.StoriesBean;
 import com.xianrou.zhihudaily.presenter.contractor.DailyContractor;
 import com.xianrou.zhihudaily.uitls.RxUtil;
 
@@ -24,12 +26,12 @@ public class DailyPresenter extends BasePresenterImpl<DailyContractor.View>
 	public void getData() {
 		Subscription rxSubscription = mRetrofitHelper.fetchDailyListInfo()
 				.compose(RxUtil.rxSchedulerHelper())
-//				.map(listBean -> {
-//					for (StoriesBean bean : listBean.stories) {
-//						bean.readState = mRealmHelper.queryReadNews(bean.id);
-//					}
-//					return listBean;
-//				})
+				.map(listBean -> {
+					for (StoriesBean bean : listBean.stories) {
+						bean.readState = mRealmHelper.queryReadNews(bean.id);
+					}
+					return listBean;
+				})
 				.subscribe(dailyListBean -> {
 					mView.showContent(dailyListBean);
 					mView.hideRefresh();
@@ -46,12 +48,12 @@ public class DailyPresenter extends BasePresenterImpl<DailyContractor.View>
 		String newDate = changeDate(date);
 		Subscription subscribe = mRetrofitHelper.fetchDailyBeforeListInfo(newDate)
 				.compose(RxUtil.rxSchedulerHelper())
-//				.map(listBean -> {
-//					for (StoriesBean bean : listBean.stories) {
-//						bean.readState = mRealmHelper.queryReadNews(bean.id);
-//					}
-//					return listBean;
-//				})
+				.map(listBean -> {
+					for (StoriesBean bean : listBean.stories) {
+						bean.readState = mRealmHelper.queryReadNews(bean.id);
+					}
+					return listBean;
+				})
 				.subscribe(listBean -> {
 					if (listBean == null || listBean.stories.size() == 0)
 						mView.loadComplete();
@@ -65,8 +67,9 @@ public class DailyPresenter extends BasePresenterImpl<DailyContractor.View>
 	}
 
 	@Override
-	public void insertRead(int id, int position) {
-//		mRealmHelper.insertReadNews(id);
+	public void insertRead(ReadBean bean, int position) {
+		mRealmHelper.insertReadNews(bean);
+		mView.updateReadUi(position);
 	}
 
 	private String changeDate(String date) {

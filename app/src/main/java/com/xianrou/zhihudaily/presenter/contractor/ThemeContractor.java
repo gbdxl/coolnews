@@ -15,12 +15,15 @@ import com.xianrou.zhihudaily.bean.ThemeListBean;
 public class ThemeContractor {
 
 	public interface View extends BaseView {
+
 		void showContent(ThemeListBean bean);
 
 		void hideRefresh();
+
 	}
 
 	public interface Presenter extends BasePresenter<View> {
+
 		void getData();
 	}
 

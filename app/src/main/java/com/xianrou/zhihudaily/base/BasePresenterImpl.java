@@ -1,6 +1,7 @@
 package com.xianrou.zhihudaily.base;
 
 
+import com.xianrou.zhihudaily.http.RealmHelper;
 import com.xianrou.zhihudaily.http.RetrofitHelper;
 import com.xianrou.zhihudaily.uitls.NullCheckUtil;
 
@@ -18,11 +19,11 @@ public class BasePresenterImpl<T extends BaseView>
 	protected T mView;
 
 	protected RetrofitHelper mRetrofitHelper;
-//	protected RealmHelper mRealmHelper;
+	protected RealmHelper mRealmHelper;
 
 	public BasePresenterImpl() {
 		mRetrofitHelper = new RetrofitHelper();
-//		mRealmHelper = new RealmHelper();
+		mRealmHelper = new RealmHelper();
 	}
 
 	protected void addSubscribe(Subscription subscription) {

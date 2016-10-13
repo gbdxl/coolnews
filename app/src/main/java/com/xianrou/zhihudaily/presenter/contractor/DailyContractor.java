@@ -3,6 +3,7 @@ package com.xianrou.zhihudaily.presenter.contractor;
 import com.xianrou.zhihudaily.base.BasePresenter;
 import com.xianrou.zhihudaily.base.BaseView;
 import com.xianrou.zhihudaily.bean.DailyListBean;
+import com.xianrou.zhihudaily.bean.ReadBean;
 
 /**
  * Created by android studio.
@@ -33,7 +34,7 @@ public class DailyContractor {
 
 		void getMoreData(String date);
 
-		void insertRead(int id, int position);
+		void insertRead(ReadBean bean, int position);
 	}
 
 }

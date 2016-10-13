@@ -1,5 +1,6 @@
 package com.xianrou.zhihudaily.ui.zhihu.adapter;
 
+import android.support.v4.content.ContextCompat;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
@@ -22,7 +23,10 @@ public class HotAdapter extends BaseQuickAdapter<RecentBean> {
 
 	@Override
 	protected void convert(BaseViewHolder baseViewHolder, RecentBean recentBean) {
-		baseViewHolder.setText(R.id.tv_daily_item_title, recentBean.title);
+		baseViewHolder.setText(R.id.tv_daily_item_title, recentBean.title)
+				.setTextColor(R.id.tv_daily_item_title, recentBean.readState ?
+						ContextCompat.getColor(mContext, R.color.news_read) :
+						ContextCompat.getColor(mContext, R.color.news_unread));
 		Glide.with(mContext)
 				.load(recentBean.thumbnail)
 				.centerCrop()

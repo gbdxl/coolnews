@@ -2,6 +2,8 @@ package com.xianrou.zhihudaily.presenter;
 
 import com.xianrou.zhihudaily.R;
 import com.xianrou.zhihudaily.base.BasePresenterImpl;
+import com.xianrou.zhihudaily.bean.ReadBean;
+import com.xianrou.zhihudaily.bean.RecentBean;
 import com.xianrou.zhihudaily.presenter.contractor.HotContractor;
 import com.xianrou.zhihudaily.uitls.RxUtil;
 
@@ -18,6 +20,12 @@ public class HotPresenter extends BasePresenterImpl<HotContractor.View> implemen
 	public void getData() {
 		Subscription subscribe = mRetrofitHelper.fetchHotListInfo()
 				.compose(RxUtil.rxSchedulerHelper())
+				.map(listBean -> {
+					for (RecentBean bean : listBean.recent) {
+						bean.readState = mRealmHelper.queryReadNews(bean.news_id);
+					}
+					return listBean;
+				})
 				.subscribe(listBean -> {
 					mView.showContent(listBean);
 					mView.hideLoadingView();
@@ -26,5 +34,11 @@ public class HotPresenter extends BasePresenterImpl<HotContractor.View> implemen
 					mView.hideLoadingView();
 				});
 		addSubscribe(subscribe);
+	}
+
+	@Override
+	public void insertReadData(ReadBean bean, int position) {
+		mRealmHelper.insertReadNews(bean);
+		mView.updateReadUi(position);
 	}
 }

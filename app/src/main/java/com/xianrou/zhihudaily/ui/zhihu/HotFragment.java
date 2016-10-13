@@ -10,6 +10,7 @@ import com.chad.library.adapter.base.listener.OnItemClickListener;
 import com.xianrou.zhihudaily.R;
 import com.xianrou.zhihudaily.base.BaseFragment;
 import com.xianrou.zhihudaily.bean.HotListBean;
+import com.xianrou.zhihudaily.bean.ReadBean;
 import com.xianrou.zhihudaily.bean.RecentBean;
 import com.xianrou.zhihudaily.presenter.HotPresenter;
 import com.xianrou.zhihudaily.presenter.contractor.HotContractor;
@@ -53,7 +54,13 @@ public class HotFragment extends BaseFragment<HotPresenter>
 		recyclerView.addOnItemTouchListener(new OnItemClickListener() {
 			@Override
 			public void SimpleOnItemClick(BaseQuickAdapter baseQuickAdapter, View view, int i) {
-				ZhihuDetailActivity.launch(mActivity, mList.get(i).news_id);
+				RecentBean bean = mList.get(i);
+				ZhihuDetailActivity.launch(mActivity, bean.news_id);
+				if (!bean.readState)
+					mPresenter.insertReadData(new ReadBean(ReadBean.TYPE_ZHIHU,
+							String.valueOf(bean.news_id),
+							bean.thumbnail == null ? "" : bean.thumbnail,
+							bean.title), i);
 			}
 		});
 	}
@@ -78,5 +85,11 @@ public class HotFragment extends BaseFragment<HotPresenter>
 	@Override
 	public void hideLoadingView() {
 		swipeLayout.setRefreshing(false);
+	}
+
+	@Override
+	public void updateReadUi(int position) {
+		mList.get(position).readState = true;
+		mAdapter.notifyItemChanged(position);
 	}
 }

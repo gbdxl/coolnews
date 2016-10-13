@@ -156,4 +156,9 @@ public class ZhihuDetailActivity extends BaseActivity<ZhihuDetailPresenter> impl
 		wvDetailContent.setVisibility(View.VISIBLE);
 	}
 
+	@Override
+	protected void onDestroy() {
+		super.onDestroy();
+		wvDetailContent.destroy();
+	}
 }

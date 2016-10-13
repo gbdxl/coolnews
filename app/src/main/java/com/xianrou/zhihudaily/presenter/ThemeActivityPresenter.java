@@ -1,6 +1,8 @@
 package com.xianrou.zhihudaily.presenter;
 
 import com.xianrou.zhihudaily.base.BasePresenterImpl;
+import com.xianrou.zhihudaily.bean.ReadBean;
+import com.xianrou.zhihudaily.bean.StoriesBean;
 import com.xianrou.zhihudaily.presenter.contractor.ThemeActivityContractor;
 import com.xianrou.zhihudaily.uitls.RxUtil;
 
@@ -22,6 +24,12 @@ public class ThemeActivityPresenter extends BasePresenterImpl<ThemeActivityContr
 	public void getData(int id) {
 		Subscription subscribe = mRetrofitHelper.fetchThemeChildListInfo(id)
 				.compose(RxUtil.rxSchedulerHelper())
+				.map(listBean -> {
+					for (StoriesBean bean : listBean.stories) {
+						bean.readState = mRealmHelper.queryReadNews(bean.id);
+					}
+					return listBean;
+				})
 				.doOnSubscribe(() -> mView.showLoadingView())
 				.subscribeOn(AndroidSchedulers.mainThread())
 				.subscribe(themeChildListBean -> {
@@ -32,5 +40,11 @@ public class ThemeActivityPresenter extends BasePresenterImpl<ThemeActivityContr
 					mView.toast("数据加载失败~~(╯﹏╰)b");
 				});
 		addSubscribe(subscribe);
+	}
+
+	@Override
+	public void insertReadData(ReadBean bean, int position) {
+		mRealmHelper.insertReadNews(bean);
+		mView.updateReadUi(position);
 	}
 }

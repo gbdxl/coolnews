@@ -5,6 +5,8 @@ import android.app.Application;
 import com.facebook.stetho.Stetho;
 import com.orhanobut.logger.Logger;
 
+import io.realm.Realm;
+
 
 /**
  * Created by android studio.
@@ -33,6 +35,7 @@ public class AppApplication extends Application {
 						.enableDumpapp(Stetho.defaultDumperPluginsProvider(this))
 						.enableWebKitInspector(Stetho.defaultInspectorModulesProvider(this))
 						.build());
+		Realm.init(this);
 	}
 	public static AppApplication getInstance() {
 		return sInstance;

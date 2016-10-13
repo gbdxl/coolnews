@@ -6,12 +6,16 @@ import android.os.Bundle;
 import android.support.design.widget.AppBarLayout;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.chad.library.adapter.base.listener.OnItemClickListener;
 import com.xianrou.zhihudaily.R;
 import com.xianrou.zhihudaily.base.BaseActivity;
+import com.xianrou.zhihudaily.bean.ReadBean;
 import com.xianrou.zhihudaily.bean.StoriesBean;
 import com.xianrou.zhihudaily.bean.ThemeChildListBean;
 import com.xianrou.zhihudaily.presenter.ThemeActivityPresenter;
@@ -60,6 +64,13 @@ public class ThemeActivity extends BaseActivity<ThemeActivityPresenter>
 		activity.startActivity(intent, bundle);
 	}
 
+
+	public static void launch(Activity activity, int id) {
+		Intent intent = new Intent(activity, ThemeActivity.class);
+		intent.putExtra(EXTRA_ID, id);
+		activity.startActivity(intent);
+	}
+
 	@Override
 	public void finish() {
 		super.finish();
@@ -76,6 +87,11 @@ public class ThemeActivity extends BaseActivity<ThemeActivityPresenter>
 		viewToolbar.setNavigationOnClickListener(v -> finish());
 		mAdapter = new ThemeActivityAdapter(R.layout.item_dialy, mList);
 		mRecyclerView.setAdapter(mAdapter);
+
+		addListeners();
+	}
+
+	private void addListeners() {
 		appBar.addOnOffsetChangedListener((appBarLayout, verticalOffset) -> {
 			if (mBean != null) {
 				if (verticalOffset != 0) {
@@ -83,6 +99,18 @@ public class ThemeActivity extends BaseActivity<ThemeActivityPresenter>
 				} else {
 					clpToolbar.setTitle(mBean.description);
 				}
+			}
+		});
+		mRecyclerView.addOnItemTouchListener(new OnItemClickListener() {
+			@Override
+			public void SimpleOnItemClick(BaseQuickAdapter baseQuickAdapter, View view, int i) {
+				StoriesBean bean = mList.get(i);
+				ZhihuDetailActivity.launch(ThemeActivity.this, bean.id);
+				if (!bean.readState)
+					mPresenter.insertReadData(new ReadBean(ReadBean.TYPE_ZHIHU,
+							String.valueOf(bean.id),
+							bean.images == null ? "" : bean.images.get(0),
+							bean.title), i);
 			}
 		});
 	}
@@ -108,6 +136,12 @@ public class ThemeActivity extends BaseActivity<ThemeActivityPresenter>
 				.into(detailBarImage);
 		viewToolbar.setTitle(bean.name);
 		clpToolbar.setTitle(bean.description);
+	}
+
+	@Override
+	public void updateReadUi(int position) {
+		mList.get(position).readState = true;
+		mAdapter.notifyItemChanged(position);
 	}
 
 }

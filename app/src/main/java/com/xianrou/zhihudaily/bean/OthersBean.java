@@ -6,5 +6,5 @@ public class OthersBean {
 	public String description;
 	public int id;
 	public String name;
-
+	public boolean readState;
 }

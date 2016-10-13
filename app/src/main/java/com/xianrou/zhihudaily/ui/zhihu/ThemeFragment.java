@@ -64,7 +64,7 @@ public class ThemeFragment extends BaseFragment<ThemePresenter>
 				if (mList.size() > 0){
 					ActivityOptionsCompat options
 							= ActivityOptionsCompat.makeSceneTransitionAnimation(mActivity, view, getString(R.string.theme_share));
-					ThemeActivity.launch(mActivity, mList.get(i).id, options.toBundle());
+					ThemeActivity.launch(mActivity, mList.get(i).id);
 					mActivity.overridePendingTransition(0, 0);
 				}
 

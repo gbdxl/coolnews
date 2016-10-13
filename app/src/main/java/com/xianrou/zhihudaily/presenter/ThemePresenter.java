@@ -31,4 +31,5 @@ public class ThemePresenter extends BasePresenterImpl<ThemeContractor.View> impl
 				});
 		addSubscribe(subscribe);
 	}
+
 }

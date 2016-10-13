@@ -1,5 +1,6 @@
 package com.xianrou.zhihudaily.ui.zhihu.adapter;
 
+import android.support.v4.content.ContextCompat;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
@@ -26,11 +27,14 @@ public class ThemeActivityAdapter extends BaseQuickAdapter<StoriesBean> {
 
 	@Override
 	protected void convert(BaseViewHolder holder, StoriesBean storiesBean) {
-		holder.setText(R.id.tv_daily_item_title,storiesBean.title);
+		holder.setText(R.id.tv_daily_item_title,storiesBean.title)
+				.setVisible(R.id.tv_daily_date, false)
+				.setTextColor(R.id.tv_daily_item_title,storiesBean.readState?
+						ContextCompat.getColor(mContext, R.color.news_read) :
+						ContextCompat.getColor(mContext, R.color.news_unread));
 		if (null != storiesBean.images) {
 			Glide.with(mContext).load(storiesBean.images.get(0)).
 					into((ImageView) holder.getView(R.id.iv_daily_item_image));
 		}
-		holder.setVisible(R.id.tv_daily_date, false);
 	}
 }

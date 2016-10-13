@@ -12,6 +12,7 @@ import com.chad.library.adapter.base.listener.OnItemClickListener;
 import com.xianrou.zhihudaily.R;
 import com.xianrou.zhihudaily.base.BaseFragment;
 import com.xianrou.zhihudaily.bean.DailyListBean;
+import com.xianrou.zhihudaily.bean.ReadBean;
 import com.xianrou.zhihudaily.bean.StoriesBean;
 import com.xianrou.zhihudaily.events.TabSelectEvent;
 import com.xianrou.zhihudaily.presenter.DailyPresenter;
@@ -34,14 +35,14 @@ import rx.Subscription;
  * Desc
  */
 public class DailyFragment extends BaseFragment<DailyContractor.Presenter>
-				implements DailyContractor.View ,SwipeRefreshLayout.OnRefreshListener{
+		implements DailyContractor.View, SwipeRefreshLayout.OnRefreshListener {
 
 	@BindView(R.id.recycler_view)
 	RecyclerView mRecyclerView;
 	@BindView(R.id.swipe_layout)
 	SwipeRefreshLayout mSwipeLayout;
 
-	private List<StoriesBean> storiesBeen ;
+	private List<StoriesBean> storiesBeen;
 	private DailyAdapter mDailyAdapter;
 	private DailyListBean mListBean;
 	private ConvenientBanner mBanner;
@@ -92,15 +93,23 @@ public class DailyFragment extends BaseFragment<DailyContractor.Presenter>
 	private void addListeners() {
 		mDailyAdapter.setOnLoadMoreListener(() -> {
 			mRecyclerView.post(() -> {
-				if(lastDate != null)
+				if (lastDate != null)
 					mPresenter.getMoreData(lastDate);
 			});
 		});
 		mRecyclerView.addOnItemTouchListener(new OnItemClickListener() {
 			@Override
 			public void SimpleOnItemClick(BaseQuickAdapter baseQuickAdapter, View view, int i) {
-				ZhihuDetailActivity.launch(mActivity, storiesBeen.get(i).id);
-				mPresenter.insertRead(storiesBeen.get(i).id, i);
+				StoriesBean bean = storiesBeen.get(i);
+				ZhihuDetailActivity.launch(mActivity, bean.id);
+				if (!bean.readState) {
+					ReadBean readBean = new ReadBean(ReadBean.TYPE_ZHIHU,
+							String.valueOf(bean.id),
+							bean.images.get(0),
+							bean.title);
+					mPresenter.insertRead(readBean, i);
+				}
+
 			}
 		});
 	}
@@ -126,7 +135,7 @@ public class DailyFragment extends BaseFragment<DailyContractor.Presenter>
 	public void setUserVisibleHint(boolean isVisibleToUser) {
 		super.setUserVisibleHint(isVisibleToUser);
 		if (mBanner != null) {
-			if(isVisibleToUser && !mBanner.isTurning())
+			if (isVisibleToUser && !mBanner.isTurning())
 				mBanner.startTurning(5000);
 			else if (!isVisibleToUser && mBanner.isTurning())
 				mBanner.stopTurning();
@@ -154,7 +163,8 @@ public class DailyFragment extends BaseFragment<DailyContractor.Presenter>
 
 	@Override
 	public void updateReadUi(int position) {
-		mDailyAdapter.notifyItemChanged(position);
+		storiesBeen.get(position).readState = true;
+		mDailyAdapter.notifyItemChanged(position + 1);//添加了header
 	}
 
 	@Override
