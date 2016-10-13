@@ -1,7 +1,6 @@
 package com.xianrou.zhihudaily.presenter;
 
 import com.xianrou.zhihudaily.base.BasePresenterImpl;
-import com.xianrou.zhihudaily.http.RetrofitHelper;
 import com.xianrou.zhihudaily.presenter.contractor.ThemeContractor;
 import com.xianrou.zhihudaily.uitls.RxUtil;
 import com.xianrou.zhihudaily.uitls.TLog;
@@ -17,12 +16,6 @@ import rx.Subscription;
  */
 
 public class ThemePresenter extends BasePresenterImpl<ThemeContractor.View> implements ThemeContractor.Presenter {
-
-	private final RetrofitHelper mRetrofitHelper;
-
-	public ThemePresenter() {
-		mRetrofitHelper = new RetrofitHelper();
-	}
 
 	@Override
 	public void getData() {

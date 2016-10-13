@@ -13,10 +13,14 @@ import com.xianrou.zhihudaily.bean.DailyListBean;
  */
 
 public class DailyContractor {
+
 	public interface View extends BaseView {
+
 		void showContent(DailyListBean listBean);
 
 		void showMoreContent(DailyListBean listBean);
+
+		void updateReadUi(int position);
 
 		void loadComplete();
 
@@ -29,6 +33,7 @@ public class DailyContractor {
 
 		void getMoreData(String date);
 
+		void insertRead(int id, int position);
 	}
 
 }

@@ -1,7 +1,6 @@
 package com.xianrou.zhihudaily.presenter;
 
 import com.xianrou.zhihudaily.base.BasePresenterImpl;
-import com.xianrou.zhihudaily.http.RetrofitHelper;
 import com.xianrou.zhihudaily.presenter.contractor.SplashConractor;
 import com.xianrou.zhihudaily.uitls.RxUtil;
 
@@ -18,12 +17,6 @@ import rx.Subscription;
 public class SplashPresenter extends BasePresenterImpl<SplashConractor.View> implements SplashConractor.Presenter {
 
 	private static final String RES = "1080*1776";
-
-	private final RetrofitHelper mRetrofitHelper;
-
-	public SplashPresenter() {
-		mRetrofitHelper = new RetrofitHelper();
-	}
 
 	@Override
 	public void getPic() {

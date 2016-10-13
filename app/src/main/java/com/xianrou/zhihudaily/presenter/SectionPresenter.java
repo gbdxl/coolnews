@@ -2,7 +2,6 @@ package com.xianrou.zhihudaily.presenter;
 
 import com.xianrou.zhihudaily.R;
 import com.xianrou.zhihudaily.base.BasePresenterImpl;
-import com.xianrou.zhihudaily.http.RetrofitHelper;
 import com.xianrou.zhihudaily.presenter.contractor.SectionContractor;
 import com.xianrou.zhihudaily.uitls.RxUtil;
 
@@ -16,12 +15,6 @@ import rx.android.schedulers.AndroidSchedulers;
 
 public class SectionPresenter extends BasePresenterImpl<SectionContractor.View>
 		implements SectionContractor.Presenter {
-
-	private final RetrofitHelper mRetrofitHelper;
-
-	public SectionPresenter() {
-		mRetrofitHelper = new RetrofitHelper();
-	}
 
 	@Override
 	public void getData() {

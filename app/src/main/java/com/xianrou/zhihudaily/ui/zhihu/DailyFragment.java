@@ -100,6 +100,7 @@ public class DailyFragment extends BaseFragment<DailyContractor.Presenter>
 			@Override
 			public void SimpleOnItemClick(BaseQuickAdapter baseQuickAdapter, View view, int i) {
 				ZhihuDetailActivity.launch(mActivity, storiesBeen.get(i).id);
+				mPresenter.insertRead(storiesBeen.get(i).id, i);
 			}
 		});
 	}
@@ -149,6 +150,11 @@ public class DailyFragment extends BaseFragment<DailyContractor.Presenter>
 	public void showMoreContent(DailyListBean listBean) {
 		lastDate = listBean.date;
 		mDailyAdapter.addData(listBean.stories);
+	}
+
+	@Override
+	public void updateReadUi(int position) {
+		mDailyAdapter.notifyItemChanged(position);
 	}
 
 	@Override

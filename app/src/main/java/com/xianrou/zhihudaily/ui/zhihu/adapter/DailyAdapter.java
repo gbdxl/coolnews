@@ -1,5 +1,6 @@
 package com.xianrou.zhihudaily.ui.zhihu.adapter;
 
+import android.support.v4.content.ContextCompat;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
@@ -39,7 +40,10 @@ public class DailyAdapter extends BaseQuickAdapter<StoriesBean> {
 			holder.setVisible(R.id.tv_daily_date, false);
 		}
 		lastDate = date;
-		holder.setText(R.id.tv_daily_item_title,storiesBean.title);
+		holder.setText(R.id.tv_daily_item_title, storiesBean.title)
+				.setTextColor(R.id.tv_daily_item_title, storiesBean.readState ?
+						ContextCompat.getColor(mContext, R.color.news_read) :
+						ContextCompat.getColor(mContext, R.color.news_unread));
 		int position = holder.getAdapterPosition();
 		if (position == 1) {
 			holder.setVisible(R.id.tv_daily_date, true);

@@ -1,6 +1,7 @@
 package com.xianrou.zhihudaily.base;
 
 
+import com.xianrou.zhihudaily.http.RetrofitHelper;
 import com.xianrou.zhihudaily.uitls.NullCheckUtil;
 
 import rx.Subscription;
@@ -15,6 +16,14 @@ public class BasePresenterImpl<T extends BaseView>
 	private CompositeSubscription mCompositeSubscription;
 
 	protected T mView;
+
+	protected RetrofitHelper mRetrofitHelper;
+//	protected RealmHelper mRealmHelper;
+
+	public BasePresenterImpl() {
+		mRetrofitHelper = new RetrofitHelper();
+//		mRealmHelper = new RealmHelper();
+	}
 
 	protected void addSubscribe(Subscription subscription) {
 		NullCheckUtil.checkNotNull(subscription, "subscription 不能为空");

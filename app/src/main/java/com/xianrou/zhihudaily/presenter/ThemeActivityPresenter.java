@@ -1,7 +1,6 @@
 package com.xianrou.zhihudaily.presenter;
 
 import com.xianrou.zhihudaily.base.BasePresenterImpl;
-import com.xianrou.zhihudaily.http.RetrofitHelper;
 import com.xianrou.zhihudaily.presenter.contractor.ThemeActivityContractor;
 import com.xianrou.zhihudaily.uitls.RxUtil;
 
@@ -18,12 +17,6 @@ import rx.android.schedulers.AndroidSchedulers;
 
 public class ThemeActivityPresenter extends BasePresenterImpl<ThemeActivityContractor.View>
 		implements ThemeActivityContractor.Presenter {
-
-	private final RetrofitHelper mRetrofitHelper;
-
-	public ThemeActivityPresenter() {
-		mRetrofitHelper = new RetrofitHelper();
-	}
 
 	@Override
 	public void getData(int id) {

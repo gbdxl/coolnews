@@ -4,7 +4,6 @@ import android.util.Log;
 
 import com.xianrou.zhihudaily.R;
 import com.xianrou.zhihudaily.base.BasePresenterImpl;
-import com.xianrou.zhihudaily.http.RetrofitHelper;
 import com.xianrou.zhihudaily.presenter.contractor.DailyContractor;
 import com.xianrou.zhihudaily.uitls.RxUtil;
 
@@ -21,16 +20,16 @@ import rx.Subscription;
 public class DailyPresenter extends BasePresenterImpl<DailyContractor.View>
 		implements DailyContractor.Presenter {
 
-	private final RetrofitHelper mRetrofitHelper;
-
-	public DailyPresenter() {
-		mRetrofitHelper = new RetrofitHelper();
-	}
-
 	@Override
 	public void getData() {
 		Subscription rxSubscription = mRetrofitHelper.fetchDailyListInfo()
 				.compose(RxUtil.rxSchedulerHelper())
+//				.map(listBean -> {
+//					for (StoriesBean bean : listBean.stories) {
+//						bean.readState = mRealmHelper.queryReadNews(bean.id);
+//					}
+//					return listBean;
+//				})
 				.subscribe(dailyListBean -> {
 					mView.showContent(dailyListBean);
 					mView.hideRefresh();
@@ -47,6 +46,12 @@ public class DailyPresenter extends BasePresenterImpl<DailyContractor.View>
 		String newDate = changeDate(date);
 		Subscription subscribe = mRetrofitHelper.fetchDailyBeforeListInfo(newDate)
 				.compose(RxUtil.rxSchedulerHelper())
+//				.map(listBean -> {
+//					for (StoriesBean bean : listBean.stories) {
+//						bean.readState = mRealmHelper.queryReadNews(bean.id);
+//					}
+//					return listBean;
+//				})
 				.subscribe(listBean -> {
 					if (listBean == null || listBean.stories.size() == 0)
 						mView.loadComplete();
@@ -57,6 +62,11 @@ public class DailyPresenter extends BasePresenterImpl<DailyContractor.View>
 					mView.loadComplete();
 				});
 		addSubscribe(subscribe);
+	}
+
+	@Override
+	public void insertRead(int id, int position) {
+//		mRealmHelper.insertReadNews(id);
 	}
 
 	private String changeDate(String date) {
