@@ -4,6 +4,7 @@ import android.app.Application;
 
 import com.facebook.stetho.Stetho;
 import com.orhanobut.logger.Logger;
+import com.squareup.leakcanary.LeakCanary;
 
 import io.realm.Realm;
 
@@ -36,6 +37,10 @@ public class AppApplication extends Application {
 						.enableWebKitInspector(Stetho.defaultInspectorModulesProvider(this))
 						.build());
 		Realm.init(this);
+		if (LeakCanary.isInAnalyzerProcess(this)) {
+			return;
+		}
+		LeakCanary.install(this);
 	}
 	public static AppApplication getInstance() {
 		return sInstance;

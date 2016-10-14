@@ -46,7 +46,7 @@ public class HotFragment extends BaseFragment<HotPresenter>
 
 	@Override
 	protected void initData() {
-		mPresenter = new HotPresenter();
+
 		mPresenter.getData();
 		recyclerView.setLayoutManager(new LinearLayoutManager(mContext));
 		mAdapter = new HotAdapter(R.layout.item_hot, mList);
@@ -67,6 +67,7 @@ public class HotFragment extends BaseFragment<HotPresenter>
 
 	@Override
 	protected void initViews(View view) {
+		mPresenter = new HotPresenter();
 		swipeLayout.setOnRefreshListener(this);
 	}
 

@@ -1,5 +1,7 @@
 package com.xianrou.zhihudaily.http;
 
+import android.support.annotation.NonNull;
+
 import com.xianrou.zhihudaily.bean.ReadBean;
 
 import io.realm.Realm;
@@ -35,5 +37,11 @@ public class RealmHelper {
 				.contains(ReadBean.FIELD_ID_NAME, String.valueOf(id))
 				.findAll();
 		return all.size() > 0;
+	}
+
+	@NonNull
+	public RealmResults<ReadBean> getAllReadBeen() {
+		return mRealm.where(ReadBean.class)
+					.findAll();
 	}
 }

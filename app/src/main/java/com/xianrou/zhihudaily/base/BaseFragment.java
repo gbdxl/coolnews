@@ -98,9 +98,9 @@ public abstract class BaseFragment<T extends BasePresenter> extends SupportFragm
 			View view = inflater.inflate(layout_id, null);
 			ButterKnife.bind(this,view);
 			initViews(view);
-			initData();
 			if (mPresenter != null)
 				mPresenter.attachView(this);
+			initData();
 			return view;
 		} else
 			throw new IllegalArgumentException("You must return a right target layout id for inflater");
@@ -113,12 +113,11 @@ public abstract class BaseFragment<T extends BasePresenter> extends SupportFragm
 	@Override
 	public void onViewCreated(View view, Bundle savedInstanceState) {
 		super.onViewCreated(view, savedInstanceState);
-
 		initializeScreenValue();
 	}
 
 	/**
-	 * iniitialize Screen width heigth density
+	 * initialize Screen width height density
 	 */
 	protected void initializeScreenValue() {
 		DisplayMetrics displayMetrics = new DisplayMetrics();
@@ -161,7 +160,7 @@ public abstract class BaseFragment<T extends BasePresenter> extends SupportFragm
 		mCompositeSubscription.add(subscription);
 	}
 
-	private void unSubscibe() {
+	private void unSubscribe() {
 		if (null != mCompositeSubscription) {
 			mCompositeSubscription.unsubscribe();
 		}
@@ -172,6 +171,6 @@ public abstract class BaseFragment<T extends BasePresenter> extends SupportFragm
 		super.onDestroy();
 		if (null != mPresenter)
 			mPresenter.detachView();
-		unSubscibe();
+		unSubscribe();
 	}
 }

@@ -84,6 +84,7 @@ public class ThemeActivity extends BaseActivity<ThemeActivityPresenter>
 
 	@Override
 	protected void initViews() {
+		mPresenter = new ThemeActivityPresenter();
 		viewToolbar.setNavigationOnClickListener(v -> finish());
 		mAdapter = new ThemeActivityAdapter(R.layout.item_dialy, mList);
 		mRecyclerView.setAdapter(mAdapter);
@@ -120,7 +121,7 @@ public class ThemeActivity extends BaseActivity<ThemeActivityPresenter>
 		int intExtra = getIntent().getIntExtra(EXTRA_ID, 0);
 		if (intExtra == 0)
 			finish();
-		mPresenter = new ThemeActivityPresenter();
+
 		mPresenter.getData(intExtra);
 	}
 

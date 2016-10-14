@@ -13,10 +13,13 @@ import android.view.View;
 import android.view.WindowManager;
 
 import com.xianrou.zhihudaily.R;
+import com.xianrou.zhihudaily.uitls.NullCheckUtil;
 import com.xianrou.zhihudaily.uitls.ToastUtil;
 
 import butterknife.ButterKnife;
 import me.yokeyword.fragmentation.SupportActivity;
+import rx.Subscription;
+import rx.subscriptions.CompositeSubscription;
 
 /**
  * Created by lei on 2016/9/8.
@@ -44,6 +47,7 @@ public abstract class BaseActivity<T extends BasePresenter>
 	protected int mScreenWidth = 0;
 	protected int mScreenHeight = 0;
 	protected float mScreenDensity = 0.0f;
+	private CompositeSubscription mCompositeSubscription;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -127,6 +131,7 @@ public abstract class BaseActivity<T extends BasePresenter>
 		if (mPresenter != null) {
 			mPresenter.detachView();
 		}
+		unSubscribe();
 	}
 
 	@Override
@@ -150,6 +155,18 @@ public abstract class BaseActivity<T extends BasePresenter>
 	public void hideLoadingView() {
 
 	}
+	protected void addSubscribe(Subscription subscription) {
+		NullCheckUtil.checkNotNull(subscription, "subscription 不能为空");
+		if (mCompositeSubscription == null) {
+			mCompositeSubscription = new CompositeSubscription();
+		}
+		mCompositeSubscription.add(subscription);
+	}
 
+	private void unSubscribe() {
+		if (null != mCompositeSubscription) {
+			mCompositeSubscription.unsubscribe();
+		}
+	}
 
 }

@@ -47,12 +47,12 @@ public class ThemeFragment extends BaseFragment<ThemePresenter>
 
 	@Override
 	protected void initData() {
-		mPresenter = new ThemePresenter();
 		mPresenter.getData();
 	}
 
 	@Override
 	protected void initViews(View view) {
+		mPresenter = new ThemePresenter();
 		mSwipeLayout.setOnRefreshListener(this);
 		mRecyclerView.setLayoutManager(new GridLayoutManager(mContext, 2));
 		mAdapter = new ThemeAdapter(R.layout.item_theme, mList);

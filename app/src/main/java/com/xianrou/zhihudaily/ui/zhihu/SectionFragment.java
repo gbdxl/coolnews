@@ -46,12 +46,12 @@ public class SectionFragment extends BaseFragment<SectionPresenter>
 
 	@Override
 	protected void initData() {
-		mPresenter = new SectionPresenter();
 		mPresenter.getData();
 	}
 
 	@Override
 	protected void initViews(View view) {
+		mPresenter = new SectionPresenter();
 		swipeLayout.setOnRefreshListener(this);
 		recyclerView.setLayoutManager(new GridLayoutManager(mContext, 2));
 		recyclerView.addItemDecoration(new GridSpacingItemDecoration(2, 6, true));

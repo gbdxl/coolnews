@@ -1,9 +1,9 @@
 package com.xianrou.zhihudaily.ui.main;
 
 import android.support.design.widget.NavigationView;
-import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -11,6 +11,7 @@ import android.widget.FrameLayout;
 
 import com.xianrou.zhihudaily.R;
 import com.xianrou.zhihudaily.base.BaseActivity;
+import com.xianrou.zhihudaily.uitls.FragmentFactory;
 
 import butterknife.BindView;
 
@@ -24,13 +25,15 @@ public class MainActivity extends BaseActivity
 	@BindView(R.id.drawer_layout)
 	DrawerLayout drawerLayout;
 
-
 	@Override
 	protected void initViews() {
 
 		navView.setNavigationItemSelectedListener(this);
-		loadFragment(R.id.container,new ZhihuFragment());
+		selectFragment(FragmentFactory.ZHIHU);
+	}
 
+	private void selectFragment(int position) {
+		loadFragment(R.id.container, FragmentFactory.getInstance().getFragment(position));
 	}
 
 	public void setDrawerToggle(Toolbar toolbar) {
@@ -42,7 +45,6 @@ public class MainActivity extends BaseActivity
 
 	@Override
 	protected void initData() {
-
 	}
 
 	@Override
@@ -89,15 +91,15 @@ public class MainActivity extends BaseActivity
 		int id = item.getItemId();
 
 		if (id == R.id.nav_camera) {
-			// Handle the camera action
+			selectFragment(FragmentFactory.ZHIHU);
 		} else if (id == R.id.nav_gallery) {
 
 		} else if (id == R.id.nav_slideshow) {
 
 		} else if (id == R.id.nav_manage) {
 
-		} else if (id == R.id.nav_share) {
-
+		} else if (id == R.id.nav_favorite) {
+			selectFragment(FragmentFactory.FAVORITY);
 		} else if (id == R.id.nav_send) {
 
 		}

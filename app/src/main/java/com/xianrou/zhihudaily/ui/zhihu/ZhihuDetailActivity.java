@@ -78,6 +78,7 @@ public class ZhihuDetailActivity extends BaseActivity<ZhihuDetailPresenter> impl
 
 	@Override
 	protected void initViews() {
+		mPresenter = new ZhihuDetailPresenter();
 		mId = getIntent().getIntExtra(EXTRA_ID, 0);
 		if (mId == 0)
 			finish();
@@ -111,7 +112,7 @@ public class ZhihuDetailActivity extends BaseActivity<ZhihuDetailPresenter> impl
 
 	@Override
 	protected void initData() {
-		mPresenter = new ZhihuDetailPresenter();
+
 		mPresenter.getDetailData(mId);
 		mPresenter.getExtraData(mId);
 	}

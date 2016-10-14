@@ -62,13 +62,12 @@ public class DailyFragment extends BaseFragment<DailyContractor.Presenter>
 
 	@Override
 	protected void initData() {
-		mPresenter = new DailyPresenter();
 		mPresenter.getData();
-
 	}
 
 	@Override
 	protected void initViews(View view) {
+		mPresenter = new DailyPresenter();
 		mSwipeLayout.setOnRefreshListener(this);
 		storiesBeen = new ArrayList<>();
 		LinearLayoutManager manager = new LinearLayoutManager(mContext);
